@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content=" width= device-width" />
+    <title>Word Scramble</title>
+    <style>
+        body {     
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        min-height:100vh;
+        background:mediumblue;
+        }
+        
+        .container{
+            background: white;
+            border:1px solid black;
+            width:450px;
+            border-radius:7px;
+        }
+        
+        .container h2{
+            font-size:25px;
+            font-weight:500px
+            padding: 18px 25px;
+            border-bottom: 1px solid #ccc
+        } 
+        
+         .container .content{
+         margin: 25px 20px 35px;
+             
+         }
+          .container .word{
+              text-transform:uppercase;
+              font-size:33px;
+              font-weight:500;
+              letter-spacing:15px;
+              margin-right:-15px;
+              align-items: center;
+              
+          }
+           .details p{
+               font-size:18px;
+               margin-bottom:12px;
+           }
+         
+         input{
+              width: 100%;
+              height: 60px;
+              border-radius:5px;
+              border:1px solid #aaa;
+              font-size:18px;
+              outline:none;
+              padding: 0 6px;
+          }
+      .container    .buttons{
+             display:flex;
+             margin-top:12px;
+             justify-content:space-between;
+             
+         }
+   .buttons button{
+       border:none;
+       outline:none;
+       font-size:17px;
+       width:calc(100%/2-8px);
+       background:#ccc;
+       padding: 15px 0;
+   }
+    .buttons .check-word{
+         background:#6a78ff;
+         color:white;
+     }  
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Word Scramble</h2>
+        <div class="content">
+            <p class="word"></p>
+            <div class="details">
+                <p class="hint">Hint:<span> a process of incrementing</span></p>
+                <p class="time">Timeleft:<span>30</span></p>
+            </div>
+            <input type="text" placeholder="enter a valid word">
+            <div class="buttons">
+                <button class="refresh-word">refresh-word</button>
+                  <button class="check-word">check-word</button>
+            </div>
+        </div>
+           </div>
+        <script>
+  const wordText = document.querySelector('.word');
+  
+  const hintText = document.querySelector('.hint span');
+  
+  const refreshBtn = document.querySelector('.refresh-word');
+  
+  const checkBtn = document.querySelector('.check-word');
+   const timeText= document.querySelector('.time span');
+  
+  const inputField = document.querySelector('input');
+  
+  
+const words = [
+  {
+    hint: "A sweet, edible fruit",
+    word: "Apple"
+  },
+  {
+    hint: "A large, domesticated animal with wool",
+    word: "Sheep"
+  },
+  {
+    hint: "A flying insect that produces honey",
+    word: "Bee"
+  },
+  {
+    hint: "A round object used in sports",
+    word: "Ball"
+  },
+  {
+    hint: "A small, domesticated animal often kept as a pet",
+    word: "Cat"
+  },
+  {
+    hint: "A body of water smaller than an ocean",
+    word: "Lake"
+  },
+  {
+    hint: "A popular caffeinated beverage",
+    word: "Coffee"
+  },
+  {
+    hint: "A piece of furniture used for sitting",
+    word: "Chair"
+  },
+  {
+    hint: "A tool used for writing or drawing",
+    word: "Pen"
+  },
+  {
+    hint: "A musical instrument with black and white keys",
+    word: "Piano"
+    
+  }
+];
+
+
+ 
+   let correctWord,timer;
+   
+   const initTimer = (maxTime)=>{
+    timer = setInterval(()=>{
+    
+        if(maxTime>0) {
+            maxTime--;
+            timeText.innerText = maxTime;
+        }
+        
+    }, 1000)
+        
+
+ 
+}
+
+   clearInterval(timer)    
+  
+  const initGame = ()=>{
+  initTimer(45)
+   
+              
+  const randomObj = words[Math.floor(Math.random ()*words.length)];
+   let wordArray = randomObj.word.split("");
+  for(let i = wordArray.length-1; i>0;i--){
+      let j = Math.floor(Math.random()*i+1);
+      
+      let temp = wordArray[j];
+      wordArray[j]= wordArray[i];
+      wordArray[i] = temp;
+       
+  };
+   correctWord = randomObj.word;
+  
+  wordText.innerText = wordArray.join("");
+   hintText.innerText = randomObj.hint;
+  
+ };
+ 
+  
+ 
+ const check = ()=>{
+     let userText = inputField.value.toLowerCase();
+     
+     if(!userText) 
+     alert('please enter a valid word');
+     
+   else if(userText !== correctWord.toLowerCase())
+         
+       return alert("Oops is incorrect");
+       
+      
+   else alert('correct!!!');
+   
+     
+     }
+ 
+ 
+ initGame();
+refreshBtn.addEventListener('click',initGame);
+checkBtn.addEventListener('click',check);
+
+        </script>   
+</body>
+</html>
+

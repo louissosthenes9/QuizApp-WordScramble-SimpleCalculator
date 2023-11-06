@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale= 1.0"/>
+    <title>Page title</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> A scientific calculator</title>
+    <style>
+        
+    body {
+        box-sizing:border-box;
+        margin:0;
+        border:0;
+       display:flex;
+       align-items: center;
+      justify-content:center;
+      min-height:100vh;
+    
+    }
+    
+    .buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    padding: 20px;
+    font-size:35px;
+    cursor:pointer;
+        
+    }
+    
+    
+    .calculator{
+    background: #0b0b15c7;
+    border-radius:15px;
+    overflow: hidden;
+    height:500px;
+    width: 300px;    
+    box-shadow:4px 4px 25px rgba(0,0,0,0.6);
+  
+    font-size:2rem;
+        
+        
+    }
+    form input{
+        background: black;
+        width: 100%;
+        height: 80px;
+        color:white;
+        font-size:2rem;
+        text-align:right;
+        pointer-events:
+        padding:20px;
+        border:none;
+    }
+    button{
+        width: 50px;
+        height: 45px;
+        margin:5px 0px;
+        
+        border-radius:50%;
+        padding:5px;
+        box-shadow:5px
+        
+        
+    }
+    .btn-yellow{
+        color:white;
+        background:orange;
+    }
+    
+
+     .btn-grey{
+        background:#1a1431;
+        color: silver;
+        
+    }
+    .btn-grey:hover{
+    
+    background:lime;
+    animation-duration:0.1s;
+    }
+    
+   .btn-blue{
+    background:blue;
+    color:white;
+    font-size:1.3rem;
+        
+    }
+    
+   .btn-red{
+    background:red;
+    color:white;
+    text-transform:uppercase;
+    font-size:1.2rem;
+        
+    }
+    
+ 
+    
+    
+   </style> 
+</head>
+<body>
+    <section class="calculator">
+        <form >
+            <input type="text" class="screen">
+            
+        </form>
+        
+        
+    
+    <div class="buttons">
+        
+         <button class="btn btn-yellow" data-num="+" >+</button>
+          <button class="btn btn-yellow" data-num="-" >-</button>
+           <button class="btn btn-yellow" data-num="*" >×</button>
+              <button class="btn btn-yellow"
+      
+      
+       data-num="/" >/</button>
+      
+              <button class="btn btn-yellow" data-num="%" >%</button>
+     
+       
+          
+            <button class="sin"  >sin</button>
+           <button class=" cos"  >cos</button>
+           <button class="tan"  >tan</button>
+         
+            <button class="sinh"  >sinh</button>
+           <button class=" cosh"  >cosh</button>
+           <button class="tanh"  >tanh</button>
+        
+           
+           <button class="asin"  >cosec</button>
+           <button class=" acos"  >sec</button>
+           <button class="atan"  >cot</button>
+           
+           
+       <button class="btn btn-grey" data-num="9" >9</button>   
+       <button class="btn btn-grey" data-num="8" >8</button>
+          <button class="btn btn-grey" data-num="7" >7</button>
+                  <button class="btn btn-grey" data-num="6" >6</button>
+                  <button class="btn btn-grey" data-num="5" >5</button>
+                <button class="btn btn-grey" data-num="4" >4</button>
+           <button class="btn btn-grey" data-num="3" >3</button>
+           
+        <button class="btn btn-grey" data-num="2" >2</button>
+        <button class="btn btn-grey" data-num="1" >1</button>
+                      
+           <button class="btn btn-grey" data-num="0" >0</button>
+               <button class="clear btn-red"  >CLR</button>
+               
+  
+            
+        
+         
+            <button class="equal btn-blue"  >=</button>
+         
+         
+    </div>
+    
+   </section>
+   <script>
+        
+      
+(function () {
+  const screen = document.querySelector('.screen');
+  
+  const buttons= document.querySelectorAll('.btn');
+  
+  const equal = document.querySelector('.equal');
+  
+  const clear= document.querySelector('.clear');
+  const cos= document.querySelector('.cos');
+  const sin= document.querySelector('.sin');
+  const tan= document.querySelector('.tan');
+  
+  const cosh= document.querySelector('.cosh');
+  const sinh= document.querySelector('.sinh');
+  const tanh= document.querySelector('.tanh');
+  
+  
+  
+  const acos= document.querySelector('.acos');
+  const asin= document.querySelector('.asin');
+  const atan= document.querySelector('.atan');
+ 
+  
+  
+  
+  buttons.forEach(function (button) {
+    button.addEventListener('click', function (e) {
+      let value = e.target.dataset.num;
+      screen.value += value;
+    })
+  })
+  
+  equal.addEventListener('click', function(e){
+    let answer = eval(screen.value);
+    screen.value = answer;
+  })
+  
+  clear.addEventListener('click', function(e){
+    screen.value ="";
+  })
+  
+  sin.addEventListener('click', function(e){
+    let value= screen.value;
+    let angle = parseFloat(value);
+    let radian = angle * Math.PI / 180;
+    let result = Math.sin(radian);
+    screen.value = result.toFixed(5);;
+  
+  })
+  
+  cos.addEventListener('click', function(e){
+    let value= screen.value;
+    let angle = parseFloat(value);
+    let radian = angle * Math.PI / 180;
+    let result = Math.cos(radian);
+    screen.value = result.toFixed(5);;
+  })
+  
+  tan.addEventListener('click', function(e){
+    let value= screen.value;
+    let angle = parseFloat(value);
+    let radian = angle * Math.PI / 180;
+    let result = Math.tan(radian);
+    screen.value =result.toFixed(5);
+  })
+  
+  
+  asin.addEventListener('click', function(e){
+    let value= screen.value;
+    let angle = parseFloat(value);
+    let radian = angle * Math.PI / 180;
+    let result = Math.asin(radian);
+    
+    screen.value = result.toFixed(5);;
+  })
+  
+  acos.addEventListener('click', function(e){
+    let value= screen.value;
+    let angle = parseFloat(value);
+    let radian = angle * Math.PI / 180;
+    let result = Math.acos(radian);
+    screen.value = result.toFixed(5);;
+  })
+  
+  atan.addEventListener('click', function(e){
+    let value= screen.value;
+    let angle = parseFloat(value);
+    let radian = angle * Math.PI / 180;
+    let result = Math.atan(radian);
+    screen.value = result.toFixed(5);;
+  })
+  
+   sinh.addEventListener('click', function(e){
+    let value= screen.value;
+    
+   
+    let result = Math.sinh(value);
+    screen.value = result;
+  
+  })
+  
+  cosh.addEventListener('click', function(e){
+    let value= screen.value;
+   
+    let result = Math.cosh(value);
+    screen.value = result.toFixed(5);;
+  })
+  
+  tanh.addEventListener('click', function(e){
+    let value= screen.value;
+    
+  
+    let result = Math.tanh(value);
+    screen.value =result.toFixed(5);
+  })
+  
+  
+})();
+
+    
+    </script>
+    
+    
+    
+</body>
+</html>

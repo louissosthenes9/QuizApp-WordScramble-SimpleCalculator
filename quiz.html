@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale= 1.0"/>
+    <link rel="stylesheet" href="https://fontawesome.com/icons/cloud-arrow-up?f=classic&s=duotone&sc=%231E3050">
+    <title>Quiz App</title> 
+    <style>
+        
+        body { 
+        font-family: Arial, sans-serif; }
+        
+        
+        #quiz { 
+        max-width: 600px;
+         margin: 0 auto; 
+         text-align: center; 
+         } 
+        
+        #timer { 
+        font-size: 24px;
+         margin-bottom: 20px;
+         color:cyan;
+         
+         
+         
+          } 
+        
+        
+        #question {
+        
+         font-size: 20px;
+         margin-bottom: 10px;
+         
+          } 
+        
+        #choices { 
+        
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center; 
+        
+        
+        }
+        
+        
+         #choices button {
+           font-size: 16px; 
+           padding: 10px 20px; 
+           margin: 10px;
+           border: none; 
+           border-radius:20px;
+           background-color:#2bff2e; 
+           cursor: pointer; 
+           color:white;
+           box-shadow: 0 3px 5px rgba(0,0,0,0.6);
+           }
+           
+          .container{
+              background:rgba(0,0,0,0.5);
+              margin-bottom:20px;
+              height: 28px;
+              align-items: center;
+          }
+          #choices button:hover{ 
+          
+          background-color: #ccc;
+          
+           } 
+           
+     #submit-btn { 
+           font-size: 16px; 
+           padding: 10px 20px;
+           margin: 20px 0;
+           border: none; 
+           background-color: #007bff;
+           color: #fff; 
+           cursor: pointer;
+              } 
+              
+     #submit-btn:hover{ 
+              background-color:#ff2b5f;
+              
+               } 
+              
+     #result { 
+              font-size: 24px;
+               margin-top: 20px; 
+               } 
+               
+    </style>
+    
+</head>
+<body>
+    
+<div id="quiz">
+   
+     <h1>Quiz App</h1>
+     <div class="container">
+      <div id="timer">
+          </div>
+         
+     </div> 
+     <div id="question"></div>
+     
+      <div id="choices"></div> 
+      <button id="submit-btn">Submit</button>
+       <div id="result">
+           
+       </div> 
+       </div> 
+       <div class="Correct"></div>
+       <audio id="alarm-sound"source src="/storage/emulated/0/VidMate/download/The_Chainsmokers,_ILLENIUM_-_Takeaway_(Official_Video)_ft._Lennon_Stella(128k).mp3" type="audio/mp3"> </audio>
+       
+        <script>
+    
+     //Define the quiz questions and answers
+ const quizData = [ 
+ 
+ { question: "What is the capital of France?", choices: ["Paris", "London", "Madrid", "Berlin"],
+  answer: "Paris" },
+  
+  
+  { question: "What is the largest continent?", 
+  choices: ["Asia", "Africa", "Europe", "North America"], 
+  answer: "Asia" }, 
+  
+  
+  { question: "What is the highest mountain in the world?",
+   choices: ["Mount Everest", "Mount Kilimanjaro", "Mount McKinley", "Mount Fuji"], answer: "Mount Everest" }, 
+  
+  
+  { question: "What is the currency of Japan?", choices: ["Yen", "Won", "Dollar", "Euro"], answer: "Yen" }, 
+  
+  { question: "Who wrote the novel 'To Kill a Mockingbird'?", choices: ["Harper Lee", "J.K. Rowling", "Charles Dickens", "Mark Twain"], answer: "Harper Lee" } 
+  ];
+  
+  // Set the time limit for the quiz in seconds 
+ const timeLimit = 40; 
+ 
+ 
+ // Get the HTML elements for the quiz
+ 
+ 
+  const timerDisplay = document.getElementById('timer'); 
+  
+  const questionDisplay = document.getElementById('question'); 
+  
+  const choicesDisplay = document.getElementById('choices'); 
+  const submitButton = document.getElementById('submit-btn');
+   const resultDisplay = document.getElementById('result'); 
+   // Get the audio element for the alarm 
+ 
+  const alarmSound = document.getElementById('alarm-sound'); 
+  let currentQuestion = 0;
+   let score = 0; 
+   let timeLeft = timeLimit; 
+   
+   // Function to start the quiz
+   
+   function startQuiz() { 
+  showQuestion(); 
+  startTimer(); }
+   // Function to show the current question 
+  function showQuestion() { 
+  const currentQuizData = quizData[currentQuestion];
+   questionDisplay.innerText=currentQuizData.question; 
+  choicesDisplay.innerHTML = "";
+   currentQuizData.choices.forEach(choice => { 
+   const button = document.createElement('button');
+    
+ button.innerText = choice;
+ 
+  button.classList.add('choice');
+  
+   button.addEventListener('click', () => { 
+   
+   selectAnswer(button.innerText);
+    }
+    );
+    choicesDisplay.appendChild(button); }); 
+    } 
+    // Function to handle selecting an answer 
+  
+  function selectAnswer(selectedAnswer) { if (selectedAnswer === quizData[currentQuestion].answer) {
+  
+   score++;
+  alert(`u are awesome ${score}`)
+   }else{
+      alert("better luck next time") 
+   } 
+   
+   currentQuestion++; 
+   
+  if (currentQuestion < quizData.length) { showQuestion(); }
+   else { endQuiz(); } } // Function to start the timer 
+  
+  function startTimer() { 
+  updateTimerDisplay();
+  const interval = setInterval(() => {
+   timeLeft--;
+    updateTimerDisplay(); 
+    
+    if (timeLeft === 0) {
+ clearInterval(interval); 
+ endQuiz(); }
+ 
+  }, 1000); } 
+ // Function to update the timer display
+ 
+   function updateTimerDisplay() { timerDisplay.innerText = `Time left: ${timeLeft}`; }
+    // Function to end the quiz 
+    
+   function endQuiz() { 
+   submitButton.disabled = true; // Play the alarm sound
+    alarmSound.play(); 
+    // Show the result 
+    resultDisplay.innerText = `You scored ${score} out of ${quizData.length}.`; // Disable all the answer buttons
+     const choiceButtons = document.querySelectorAll('.choice'); choiceButtons.forEach(button => { button.disabled = true; }); } 
+     // Event listener for the submit button
+      submitButton.addEventListener('click', () => { endQuiz(); }); 
+     
+       startQuiz();
+       
+        
+       </script> 
+       </body> 
+       
+       </html> 
+   
+
