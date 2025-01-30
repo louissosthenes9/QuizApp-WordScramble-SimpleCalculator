@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #333;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .portfolio-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .project-card a:hover {
+            color: #007BFF;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>My Portfolio</h1>
+    <div class="portfolio-container">
+        <div class="project-card">
+            <h2>Calculator</h2>
+            <p>A simple calculator project.</p>
+            <a href="./calculator.html">View Project</a>
+        </div>
+        <div class="project-card">
+            <h2>Word Scramble</h2>
+            <p>A fun word scramble game.</p>
+            <a href="./wordscramble.html">View Project</a>
+        </div>
+        <div class="project-card">
+            <h2>Quiz</h2>
+            <p>A basic quiz application.</p>
+            <a href="./quiz.html">View Project</a>
+        </div>
+    </div>
+
+    <script>
+        // Optional: Add some JavaScript for additional interactivity
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.05)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
